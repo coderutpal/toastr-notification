@@ -20,7 +20,6 @@ This repository contains a reusable Toastr notification setup example with Livew
 
 2. Add this script at the bottom of your layout (before closing </body>):
 
-```html
 <script>
     window.addEventListener('showToastr', function (event) {
         toastr.options = {
@@ -44,7 +43,6 @@ This repository contains a reusable Toastr notification setup example with Livew
 
 3. Dispatch Toastr event from your Livewire component:
 
-```html
 $this->dispatch('showToastr', [
     'type' => 'success', // success, error, info, warning
     'message' => 'Your custom notification message'
@@ -57,6 +55,5 @@ Download toastr.min.css and toastr.min.js files and place them in your projectâ€
 Then include them like this:
 
 
-```html
 <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
 <script src="{{ asset('js/toastr.min.js') }}"></script>
