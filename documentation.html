@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toastr Notification Setup Guide (CDN Version)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            font-family: monospace;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Toastr Notification Setup Guide</h1>
+    <p>This guide explains how to include and use <strong>Toastr.js</strong> notifications in your project using CDN links.</p>
+
+    <div class="section">
+        <h2>1. Include Toastr CSS in the &lt;head&gt;</h2>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /&gt;</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>2. Include jQuery and Toastr JS before the closing &lt;/body&gt; tag</h2>
+        <pre><code>&lt;!-- jQuery (required for Toastr) --&gt;
+&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Toastr JS --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"&gt;&lt;/script&gt;
+</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Add Toastr Event Listener Script</h2>
+        <p>This script listens for a <code>showToastr</code> event and shows the notification accordingly.</p>
+        <pre><code>window.addEventListener('showToastr', function(event) {
+    toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-top-right",
+    };
+
+    if (event.detail.type === 'success') {
+        toastr.success(event.detail.message);
+    } else if (event.detail.type === 'error') {
+        toastr.error(event.detail.message);
+    } else if (event.detail.type === 'info') {
+        toastr.info(event.detail.message);
+    } else if (event.detail.type === 'warning') {
+        toastr.warning(event.detail.message);
+    }
+});</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>4. Dispatching Notifications from Livewire (Laravel)</h2>
+        <p>Use the following code inside your Livewire component to dispatch notifications:</p>
+        <pre><code>$this-&gt;dispatch('showToastr', [
+    'type' =&gt; 'success',  // success, error, info, warning
+    'message' =&gt; 'Your message here'
+]);</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>5. Dispatching Notifications in Plain JavaScript</h2>
+        <p>Trigger a Toastr notification programmatically using vanilla JS:</p>
+        <pre><code>window.dispatchEvent(new CustomEvent('showToastr', {
+    detail: {
+        type: 'success',   // success, error, info, warning
+        message: 'Operation completed successfully'
+    }
+}));</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Summary Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Functionality</th>
+                    <th>CDN Link / Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Toastr CSS</td>
+                    <td><code>https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css</code></td>
+                </tr>
+                <tr>
+                    <td>jQuery JS</td>
+                    <td><code>https://code.jquery.com/jquery-3.6.0.min.js</code></td>
+                </tr>
+                <tr>
+                    <td>Toastr JS</td>
+                    <td><code>https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js</code></td>
+                </tr>
+                <tr>
+                    <td>Event Listener for Toastr</td>
+                    <td>See Section 3 (above)</td>
+                </tr>
+                <tr>
+                    <td>Dispatch Event in Livewire</td>
+                    <td>See Section 4 (above)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>Created by Utpal Chandra Das - for reusable Toastr notification functionality.</p>
+    </footer>
+</body>
+</html>
